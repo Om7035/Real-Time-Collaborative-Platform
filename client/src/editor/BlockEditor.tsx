@@ -35,8 +35,9 @@ const EditorInner: React.FC<EditorInnerProps> = ({ ydoc, provider, role }) => {
     // Force toolbar re-render when editor state changes
     const [, forceUpdate] = React.useReducer(x => x + 1, 0);
 
-    const editor = useEditor({
-        extensions: [
+    // Build extensions array - only add CollaborationCursor when provider is ready
+    const extensions = React.useMemo(() => {
+        const baseExtensions = [
             StarterKit.configure({
                 codeBlock: false, // Disable default code block
             }),
@@ -48,14 +49,26 @@ const EditorInner: React.FC<EditorInnerProps> = ({ ydoc, provider, role }) => {
             Collaboration.configure({
                 document: ydoc,
             }),
-            CollaborationCursor.configure({
-                provider: provider,
-                user: {
-                    name: 'User',
-                    color: '#3b82f6',
-                },
-            }),
-        ],
+        ];
+
+        // Only add CollaborationCursor if provider and provider.doc exist
+        if (provider && provider.doc) {
+            baseExtensions.push(
+                CollaborationCursor.configure({
+                    provider: provider,
+                    user: {
+                        name: 'User',
+                        color: '#3b82f6',
+                    },
+                })
+            );
+        }
+
+        return baseExtensions;
+    }, [ydoc, provider]);
+
+    const editor = useEditor({
+        extensions,
         editable: role !== 'viewer',
         editorProps: {
             attributes: {

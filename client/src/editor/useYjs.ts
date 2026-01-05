@@ -30,6 +30,9 @@ export const useYjs = (sessionId: string | undefined, socket: Socket | null, use
 
     // 4. Stable Provider Creation (POJO that mimics Tiptap expectations)
     const provider = useMemo(() => {
+        // Don't create provider until ydoc is ready
+        if (!ydoc) return null;
+
         const eventHandlers: Map<string, Set<Function>> = new Map();
 
         return {
