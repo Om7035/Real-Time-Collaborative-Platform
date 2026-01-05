@@ -4,10 +4,10 @@ import { useAuth } from '../auth/AuthContext';
 import axios from '../auth/axiosInstance';
 import config from '../utils/config';
 import { DocumentMetadata } from '../types/document';
-import { FileText, Plus, User, Trash2, Edit2, MoreVertical, LogOut } from 'lucide-react';
+import { FileText, Plus, User, Trash2, Edit2, MoreVertical } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
-    const { accessToken, user, logout } = useAuth();
+    const { accessToken, user } = useAuth();
     const [documents, setDocuments] = useState<DocumentMetadata[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isCreating, setIsCreating] = useState(false);
@@ -83,10 +83,7 @@ export const Dashboard: React.FC = () => {
         }
     };
 
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
+
 
     if (isLoading) {
         return (
@@ -128,13 +125,6 @@ export const Dashboard: React.FC = () => {
                                         New Document
                                     </>
                                 )}
-                            </button>
-                            <button
-                                onClick={handleLogout}
-                                className="flex items-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
-                            >
-                                <LogOut size={18} />
-                                Logout
                             </button>
                         </div>
                     </div>

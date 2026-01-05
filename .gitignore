@@ -12,7 +12,7 @@ dist/
 build/
 
 # Environment
-.env
+#.env
 .env.local
 .env.production
 
@@ -46,3 +46,6 @@ Thumbs.db
 .cache/
 temp/
 tmp/
+
+# Local Netlify folder
+.netlify
