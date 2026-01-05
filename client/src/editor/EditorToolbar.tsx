@@ -3,6 +3,7 @@ import { Editor } from '@tiptap/react';
 import {
     Bold,
     Italic,
+    Underline as UnderlineIcon,
     Strikethrough,
     Code,
     Code2,
@@ -38,6 +39,12 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({ editor }) => {
             title: 'Italic (Ctrl+I)',
             action: () => editor.chain().focus().toggleItalic().run(),
             isActive: () => editor.isActive('italic'),
+        },
+        {
+            icon: <UnderlineIcon size={18} />,
+            title: 'Underline (Ctrl+U)',
+            action: () => editor.chain().focus().toggleUnderline().run(),
+            isActive: () => editor.isActive('underline'),
         },
         {
             icon: <Strikethrough size={18} />,

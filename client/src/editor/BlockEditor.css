@@ -108,6 +108,14 @@
     font-style: italic;
 }
 
+.ProseMirror u {
+    text-decoration: underline;
+}
+
+.ProseMirror s {
+    text-decoration: line-through;
+}
+
 .ProseMirror code {
     background-color: #f3f4f6;
     color: #dc2626;
@@ -143,6 +151,49 @@
     font-size: 0.875em;
     line-height: 1.6;
     position: relative;
+    border: 1px solid #374151;
+}
+
+/* Code block wrapper for copy button */
+.code-block-wrapper {
+    position: relative;
+    margin: 1.5em 0;
+}
+
+.code-block-wrapper .copy-button {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    padding: 0.375em 0.75em;
+    background-color: #374151;
+    color: #9ca3af;
+    border: 1px solid #4b5563;
+    border-radius: 0.375em;
+    font-size: 0.75em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.code-block-wrapper:hover .copy-button {
+    opacity: 1;
+}
+
+.code-block-wrapper .copy-button:hover {
+    background-color: #4b5563;
+    color: #e5e7eb;
+}
+
+.code-block-wrapper .copy-button:active {
+    background-color: #6b7280;
+}
+
+.code-block-wrapper .copy-button.copied {
+    background-color: #10b981;
+    color: white;
+    border-color: #10b981;
 }
 
 .ProseMirror pre code {

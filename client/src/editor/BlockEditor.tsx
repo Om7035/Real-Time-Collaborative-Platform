@@ -3,6 +3,9 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import Collaboration from '@tiptap/extension-collaboration';
+import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
+import Underline from '@tiptap/extension-underline';
+import { CodeBlockWithCopy } from './extensions/CodeBlockWithCopy';
 import { useAuth } from '../auth/AuthContext';
 import { useYjs } from './useYjs';
 import { useDocumentSession } from './useDocumentSession';
@@ -35,27 +38,35 @@ const EditorInner: React.FC<EditorInnerProps> = ({ ydoc, provider, role }) => {
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
-                codeBlock: {
-                    HTMLAttributes: {
-                        class: 'code-block',
-                    },
-                },
+                codeBlock: false, // Disable default code block
             }),
+            CodeBlockWithCopy,
+            Underline,
             Placeholder.configure({
                 placeholder: 'Start writing... Type "/" for commands',
             }),
             Collaboration.configure({
                 document: ydoc,
             }),
-            // CollaborationCursor.configure({
-            //     provider: provider,
-            //     user: userInfo,
-            // }),
+            CollaborationCursor.configure({
+                provider: provider,
+                user: {
+                    name: 'User',
+                    color: '#3b82f6',
+                },
+            }),
         ],
         editable: role !== 'viewer',
         editorProps: {
             attributes: {
                 class: 'focus:outline-none',
+                spellcheck: 'false',
+            },
+            handleDOMEvents: {
+                // Prevent formatting from "sticking" when cursor moves
+                blur: () => {
+                    return false;
+                },
             },
         },
         // Critical: Force re-render on every editor update to sync toolbar state
