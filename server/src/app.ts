@@ -13,6 +13,10 @@ import inviteRoutes from './routes/invite.routes';
 export const createApp = (): Application => {
     const app = express();
 
+    // Trust the first proxy (required for Railway/Heroku/Netlify)
+    // Fixes: ERR_ERL_UNEXPECTED_X_FORWARDED_FOR
+    app.set('trust proxy', 1);
+
     app.use(cors({
         origin: (origin, callback) => {
             const allowed = config.cors.origin.split(',').map(o => o.trim());
