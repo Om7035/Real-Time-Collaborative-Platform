@@ -525,6 +525,4 @@ MIT License - See LICENSE file for details
 
 ---
 
-**Built with ❤️ for real-time collaboration**
 
-For questions or issues, please refer to `AI_CONTEXT.md` for detailed architecture documentation.
