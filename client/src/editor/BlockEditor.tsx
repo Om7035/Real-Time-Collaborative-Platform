@@ -37,7 +37,7 @@ const EditorInner: React.FC<EditorInnerProps> = ({ ydoc, provider, role }) => {
 
     // Build extensions array - only add CollaborationCursor when provider is ready
     const extensions = React.useMemo(() => {
-        const baseExtensions = [
+        const baseExtensions: any[] = [
             StarterKit.configure({
                 codeBlock: false, // Disable default code block
             }),
